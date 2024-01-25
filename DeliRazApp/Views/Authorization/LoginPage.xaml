@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="DeliRazApp.Views.Authorization.LoginPage"
+             Title="LoginPage"
+             Shell.NavBarIsVisible="False"
+             BackgroundColor="#F8F3D4">
+    <VerticalStackLayout Margin="20,20" VerticalOptions="Start" Spacing="10">
+        <Image Source="logo.png" WidthRequest="200" Margin="0,50,0,10"/>
+        <Frame BackgroundColor="#FFDE7D" BorderColor="#FFDE7D">
+            <VerticalStackLayout>
+                <Label 
+                    Text="Логин"
+                    TextColor="Black"
+                    FontAttributes="Bold"
+                    VerticalOptions="Center" 
+                    HorizontalOptions="Center" />
+                <Entry 
+                    Placeholder="Введите логин"
+                    Text="{Binding CurrentUser.UserLogin}"
+                    TextColor="Black"/>
+            </VerticalStackLayout>
+        </Frame>
+        <Frame BackgroundColor="#FFDE7D" BorderColor="#FFDE7D">
+            <VerticalStackLayout>
+                <Label 
+                    Text="Пароль" 
+                    VerticalOptions="Center"
+                    TextColor="Black"
+                    FontAttributes="Bold"
+                    HorizontalOptions="Center" />
+                <Entry 
+                    Placeholder="Введите пароль"
+                    Text="{Binding CurrentUser.UserPassword}"
+                    TextColor="Black"
+                    IsPassword="True"/>
+            </VerticalStackLayout>
+        </Frame>
+        <Button 
+            Text="Войти"
+            BackgroundColor="#FFDE7D"
+            FontAttributes="Bold"
+            HorizontalOptions="FillAndExpand"
+            Command="{Binding LoginCommand}"/>
+        <Label 
+            Text="Нет аккаунта? Зарегестрируйтесь!" 
+            TextColor="Black"
+            FontSize="16"
+            FontAttributes="Italic"
+            HorizontalOptions="Center"/>
+        <Button
+            Command="{Binding OpenRegistrationPageCommand}"
+            Text="Зарегистрироваться"
+            FontAttributes="Bold"
+            BackgroundColor="#FFDE7D"
+            VerticalOptions="Center" 
+            HorizontalOptions="Center"/>
+    </VerticalStackLayout>
+</ContentPage>

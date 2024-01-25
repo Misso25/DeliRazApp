@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:models="clr-namespace:DeliRazApp.Models"
+             xmlns:viewModels="clr-namespace:DeliRazApp.ViewModels"
+             x:DataType="viewModels:EventPageViewModel"
+             x:Class="DeliRazApp.Views.EventPage"
+             Title="{Binding SelectedEvent.EventName}"
+             Shell.NavBarIsVisible="False">
+    <ScrollView>
+        <VerticalStackLayout Margin="20">
+            <Label Text="{Binding SelectedEvent.EventName}" HorizontalOptions="Center" FontSize="32" FontAttributes="Bold" Margin="0,20,0,0"/>
+            <Label Text="{Binding SelectedEvent.EventDate, StringFormat='{0:d}'}" HorizontalOptions="Center" FontSize="16" FontAttributes="Bold"/>
+
+            <Label Text="Расходы" HorizontalOptions="Center" FontSize="32" FontAttributes="Bold" Margin="0,20"/>
+            <CollectionView ItemsSource="{Binding Expenses}">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="models:ExpenseModel">
+                        <Frame Margin="10, 5">
+                            <Frame.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding Source={x:RelativeSource AncestorType={x:Type viewModels:EventPageViewModel}}, Path=OpenExpenseCommand}" CommandParameter="{Binding .}"/>
+                            </Frame.GestureRecognizers>
+                            <VerticalStackLayout BackgroundColor="#FFDE7D" Padding="5" Margin="5">
+                                <Label 
+                                Text="{Binding ExpenseName}" 
+                                FontAttributes="Bold"
+                                Margin="10"
+                                FontSize="20"
+                                HorizontalOptions="Start" 
+                                TextColor="Black"/>
+                                <HorizontalStackLayout VerticalOptions="Center" Margin="10" Spacing="5">
+                                    <Label 
+                                    Text="{Binding ExpenseCreditorName}" 
+                                    TextColor="Black"
+                                    FontAttributes="Bold"/>
+                                    <Label Text="заплатил(а):"/>
+                                    <Label
+                                    Text="{Binding ExpenseAmount}"/>
+                                    <Label Text="RUB"/>
+                                </HorizontalStackLayout>
+                            </VerticalStackLayout>
+                        </Frame>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+            <Button Text="Добавить счёт" Margin="10,20,10,0" FontAttributes="Bold" Command="{Binding CreateNewExpenseCommand}"/>
+
+            <Label Text="Долги" HorizontalOptions="Center" Margin="0,20" FontSize="32" FontAttributes="Bold"/>
+            <CollectionView ItemsSource="{Binding Debts}">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="models:DebtModel" >
+                        <Frame BackgroundColor="#FFDE7D" Margin="10" HeightRequest="60">
+                            <HorizontalStackLayout HorizontalOptions="Center" Spacing="10">
+                                <VerticalStackLayout HorizontalOptions="Center"  VerticalOptions="Center">
+                                    <Label Text="{Binding DebtDebtorName}" VerticalOptions="Center" HorizontalOptions="Center" FontAttributes="Bold"/>
+                                    <Label Text="{Binding DebtDebtorLogin, StringFormat='({0})'}" VerticalOptions="Center" HorizontalOptions="Center"/>
+                                </VerticalStackLayout>
+                                <VerticalStackLayout HorizontalOptions="Center"  VerticalOptions="Center">
+                                    <Label Text="{Binding DebtAmount, StringFormat='должен {0} RUB'}"/>
+                                </VerticalStackLayout>
+                                <VerticalStackLayout HorizontalOptions="Center" VerticalOptions="Center">
+                                    <Label Text="{Binding DebtCreditorName}" VerticalOptions="Center" HorizontalOptions="Center" FontAttributes="Bold"/>
+                                    <Label Text="{Binding DebtCreditorLogin, StringFormat='({0})'}" VerticalOptions="Center" HorizontalOptions="Center" />
+                                </VerticalStackLayout>
+                            </HorizontalStackLayout>
+                        </Frame>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+
+            <Label Text="Участники" HorizontalOptions="Center" Margin="0,20" FontSize="32" FontAttributes="Bold"/>
+            <CollectionView ItemsSource="{Binding Participants}" ItemsLayout="VerticalGrid, 4">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="models:UserModel">
+                        <Frame HeightRequest="70" WidthRequest="70" Margin="10, 5">
+                            <Frame.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding Source={x:RelativeSource AncestorType={x:Type viewModels:EventPageViewModel}}, Path=OpenProfileFriendCommand}" CommandParameter="{Binding .}"/>
+                            </Frame.GestureRecognizers>
+                            <VerticalStackLayout VerticalOptions="Center">
+                                <Label Text="{Binding UserName}" VerticalOptions="Center" HorizontalOptions="Center" FontAttributes="Bold"/>
+                                <Label Text="{Binding UserLogin}" VerticalOptions="Center" HorizontalOptions="Center"/>
+                            </VerticalStackLayout>
+                        </Frame>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

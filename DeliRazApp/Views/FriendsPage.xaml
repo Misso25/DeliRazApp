@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:models="clr-namespace:DeliRazApp.Models"
+             xmlns:viewModels="clr-namespace:DeliRazApp.ViewModels"
+             x:DataType="viewModels:FriendsPageViewModel"
+             x:Class="DeliRazApp.Views.FriendsPage"
+             Title="Друзья"
+             Shell.NavBarIsVisible="False">
+    <ScrollView>
+        <VerticalStackLayout Margin="30">
+            <Label
+                Text="Друзья"
+                HorizontalOptions="Center" FontSize="32" FontAttributes="Bold" Margin="0,0,0,20"/>
+            <Label
+                Text="Добавить друга"
+                FontSize="20"
+                Margin="0,0,0,20"
+                FontAttributes="Bold"/>
+            <HorizontalStackLayout Spacing="30">
+                <Entry 
+                    Placeholder="Введите ID друга"
+                    Text="{Binding EntryID}"
+                    TextColor="Black"
+                    FontAttributes="Bold"
+                    FontSize="16"
+                    WidthRequest="200"
+                    Keyboard="Numeric"/>
+                <Button
+                    Text="Добавить"
+                    Command="{Binding AddFriendCommand}"/>
+            </HorizontalStackLayout>
+            <!--<CollectionView>
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <HorizontalStackLayout>
+                            <VerticalStackLayout>
+                                <Label
+                                    Text="{Binding FriendName}"/>
+                                <Label
+                                    Text="{Binding FriendId}"/>
+                            </VerticalStackLayout>
+                            <Button Text="Добавить"/>
+                            <Button Text="Отклонить"/>
+                        </HorizontalStackLayout>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>-->
+            <Label
+                Text="Мои друзья"
+                FontSize="20"
+                Margin="0,20"
+                FontAttributes="Bold"/>
+            <CollectionView  ItemsSource="{Binding Friends}" ItemsLayout="VerticalGrid,2">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="models:UserModel">
+                        <Frame Margin="5">
+                            <Frame.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding Source={x:RelativeSource AncestorType={x:Type viewModels:FriendsPageViewModel}}, Path=OpenProfileFriendCommand}" CommandParameter="{Binding .}"/>
+                            </Frame.GestureRecognizers>
+                            <VerticalStackLayout BackgroundColor="#FFDE7D" Padding="5" Margin="5">
+                                <Label 
+                                    Text="{Binding UserName}" 
+                                    FontAttributes="Bold"
+                                    FontSize="20"
+                                    HorizontalOptions="Center" 
+                                    TextColor="Black"/>
+                                <Label 
+                                    Text="{Binding UserLogin}" 
+                                    HorizontalOptions="Center"  
+                                    TextColor="Black"/>
+                            </VerticalStackLayout>
+                        </Frame>
+                        
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

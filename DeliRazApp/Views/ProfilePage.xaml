@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="DeliRazApp.Views.ProfilePage"
+             xmlns:models="clr-namespace:DeliRazApp.Models"
+             xmlns:viewModels="clr-namespace:DeliRazApp.ViewModels"
+             x:DataType="viewModels:ProfilePageViewModel"
+             Title="Профиль"
+             Shell.NavBarIsVisible="False">
+    <ScrollView>
+        <VerticalStackLayout Margin="30">
+            <Label
+                Text="Профиль"
+                HorizontalOptions="Center" FontSize="32" FontAttributes="Bold" Margin="0,0,0,20"/>
+            <Frame BackgroundColor="#F8F3D4" BorderColor="#F8F3D4">
+                <VerticalStackLayout Spacing="10">
+                    <Label Text="Логин"
+                           FontSize="18"
+                           FontAttributes="Bold"
+                           TextColor="Black"/>
+                    <Entry Text="{Binding UserLogin}"
+                           TextColor="Black"
+                           IsReadOnly="True"
+                           FontAttributes="Bold"
+                           FontSize="16"/>
+                    <Label Text="Имя"
+                           FontSize="18"
+                           FontAttributes="Bold"
+                           TextColor="Black"/>
+                    <Entry Text="{Binding UserName}"
+                           TextColor="Black"
+                           IsReadOnly="True"
+                           FontAttributes="Bold"
+                           FontSize="16"/>
+                    <Label Text="Номер телефона"
+                           FontSize="18"
+                           FontAttributes="Bold"
+                           TextColor="Black"/>
+                    <Entry Text="{Binding UserPhoneNumber}"
+                           TextColor="Black"
+                           IsReadOnly="True"
+                           FontAttributes="Bold"
+                           FontSize="16"/>
+                    <Label Text="Банк"
+                           FontSize="18"
+                           FontAttributes="Bold"
+                           TextColor="Black"/>
+                    <Entry Text="{Binding UserBankName}"
+                           TextColor="Black"
+                           IsReadOnly="True"
+                           FontAttributes="Bold"
+                           FontSize="16"/>
+                    <Label Text="ID"
+                           FontSize="18"
+                           FontAttributes="Bold"
+                           TextColor="Black"/>
+                    <Entry Text="{Binding UserID}"
+                           TextColor="Black"
+                           IsReadOnly="True"
+                           FontAttributes="Bold"
+                           FontSize="16"/>
+                    <Button
+                        Text="Редактировать профиль"
+                        FontAttributes="Bold"
+                        Command="{Binding EditeProfileCommand}"/>
+                </VerticalStackLayout>
+            </Frame>
+            <Label
+                Text="Мои долги"
+                HorizontalOptions="Center" FontSize="32" FontAttributes="Bold" Margin="0,20"/>
+            <CollectionView x:Name="debtView" SelectionMode="Single">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <VerticalStackLayout BackgroundColor="#FFDE7D" Padding="5" Margin="5">
+                            <Label 
+                                Text="1" 
+                                FontAttributes="Bold"
+                                Margin="10"
+                                FontSize="20"
+                                HorizontalOptions="Start"   
+                                TextColor="Black"/>
+                            <HorizontalStackLayout>
+                                <Label 
+                                    Text="2" 
+                                    FontSize="16"
+                                    FontAttributes="Bold"
+                                    Padding="10,0" 
+                                    TextColor="Black"/>
+                                <Label 
+                                    Text="3"
+                                    FontSize="16"
+                                    FontAttributes="Bold"
+                                    Padding="10,0,5,10" 
+                                    TextColor="Black"/>
+                                <Label Text="RUB"
+                                    FontSize="16"
+                                    FontAttributes="Bold"
+                                    TextColor="Black"/>
+                            </HorizontalStackLayout>
+                        </VerticalStackLayout>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

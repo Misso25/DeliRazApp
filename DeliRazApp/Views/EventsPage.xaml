@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:models="clr-namespace:DeliRazApp.Models"
+             xmlns:viewModels="clr-namespace:DeliRazApp.ViewModels"
+             x:DataType="viewModels:EventsPageViewModel"
+             x:Class="DeliRazApp.Views.EventsPage"
+             Shell.NavBarIsVisible="False">
+    
+    <ScrollView>
+        <VerticalStackLayout Margin="20">
+            <Label 
+                Text="Мои мероприятия"
+                HorizontalOptions="Center"
+                FontSize="32"
+                FontAttributes="Bold"
+                Margin="0,20"/>
+            <CollectionView ItemsSource="{Binding Events}">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="models:EventModel">
+                        <Frame Margin="10, 5">
+                            <Frame.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding Source={x:RelativeSource AncestorType={x:Type viewModels:EventsPageViewModel}}, Path=OpenEventCommand}" CommandParameter="{Binding .}"/>
+                            </Frame.GestureRecognizers>
+                            <VerticalStackLayout BackgroundColor="#FFDE7D" Padding="5" Margin="5" >
+                                <Label 
+                                    Text="{Binding EventName}" 
+                                    FontAttributes="Bold"
+                                    Margin="10"
+                                    FontSize="24"
+                                    HorizontalOptions="Start"
+                                    TextColor="Black"/>
+                                <Label 
+                                    Text="{Binding EventDate, StringFormat='{0:d}'}" 
+                                    HorizontalOptions="Start" 
+                                    Margin="10" 
+                                    TextColor="Black"
+                                    FontAttributes="Bold"/>
+                            </VerticalStackLayout>
+                        </Frame>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+            <Button
+                Text="Создать мероприятие"
+                FontAttributes="Bold"
+                BackgroundColor="#FFDE7D"
+                Margin="10,20"
+                Command="{Binding CreateNewEventCommand}"/>
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

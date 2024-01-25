@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="DeliRazApp.Views.EventsCreatePage"
+             Title="Создание события"
+             Shell.NavBarIsVisible="False">
+    <VerticalStackLayout Margin="20" Spacing="20">
+        <Label 
+            Text="Создание события"
+            VerticalOptions="Center" 
+            HorizontalOptions="Center"
+            TextColor="Black"
+            FontSize="32"
+            FontAttributes="Bold"/>
+        <Label 
+            Text="Название"
+            TextColor="Black"
+            FontAttributes="Bold"
+            FontSize="16"/>
+        <Entry
+            Placeholder="Введите название"
+            Text="{Binding EventDetail.EventName}"
+            TextColor="Black"/>
+        <Label 
+            Text="Дата"
+            TextColor="Black"
+            FontAttributes="Bold"
+            FontSize="16"/>
+        <DatePicker
+            TextColor="Black"
+            Date="{Binding EventDetail.EventDate}"
+            Format="d"/>
+        <Label 
+            Text="Участники"
+            TextColor="Black"
+            FontAttributes="Bold"
+            FontSize="16"/>
+        <Picker 
+            TextColor="Black" 
+            TitleColor="Gray" 
+            ItemsSource="{Binding FriendsList}" 
+            ItemDisplayBinding="{Binding UserName}" 
+            SelectedItem="{Binding SelectedFriend}"/>
+        <Button Text="Добавить друга" Command="{Binding AddFriendCommand}"/>
+        <CollectionView ItemsSource="{Binding SelectedFriends}">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Frame Grid.Column="0" Margin="5" Padding="10" BackgroundColor="#FFDE7D">
+                        <Label Text="{Binding UserName}" FontAttributes="Bold" FontSize="20"/>
+                    </Frame>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+        
+        <Button
+            Text="Создать"
+            BackgroundColor="#FFDE7D"
+            FontAttributes="Bold"
+            Command="{Binding CreateEventCommand}"/>
+    </VerticalStackLayout>
+</ContentPage>

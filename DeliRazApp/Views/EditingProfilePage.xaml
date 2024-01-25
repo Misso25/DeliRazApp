@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="DeliRazApp.Views.EditingProfilePage"
+             Title="Редактирование профиля"
+             Shell.NavBarIsVisible="False">
+    <VerticalStackLayout Margin="20">
+        <Label
+            Text="Редактирование профиля"
+            TextColor="Black"
+            FontSize="32"
+            FontAttributes="Bold"
+            HorizontalOptions="Center"/>
+        <Frame BackgroundColor="#F8F3D4" BorderColor="#F8F3D4">
+            <VerticalStackLayout Spacing="10">
+                <Label Text="Никнейм"
+                   FontSize="18"
+                   FontAttributes="Bold"
+                   TextColor="Black"/>
+                <Entry Text="Misso"
+                   TextColor="Black"
+                   FontAttributes="Bold"
+                   FontSize="16"/>
+                <Label Text="Имя"
+                   FontSize="18"
+                   FontAttributes="Bold"
+                   TextColor="Black"/>
+                <Entry Text="Дмитрий"
+                   TextColor="Black"
+                   FontAttributes="Bold"
+                   FontSize="16"/>
+            </VerticalStackLayout>
+        </Frame>
+        <Button
+            Text="Сохранить"
+            BackgroundColor="#FFDE7D"
+            FontAttributes="Bold"
+            Command="{Binding SaveInfoProfileCommand}"/>
+    </VerticalStackLayout>
+</ContentPage>

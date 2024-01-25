@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Shell 
+    x:Class="DeliRazApp.AppShell"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:local="clr-namespace:DeliRazApp"
+    xmlns:views="clr-namespace:DeliRazApp.Views"
+    xmlns:authorization="clr-namespace:DeliRazApp.Views.Authorization"
+    xmlns:models="clr-namespace:DeliRazApp.Models"
+    Shell.TabBarIsVisible="False"
+    FlyoutBackgroundColor="#F8F3D4"
+    Shell.TitleColor="Black"
+    x:Name="shell">
+
+    <ShellContent
+        FlyoutItemIsVisible="False" Shell.FlyoutBehavior="Disabled"
+        ContentTemplate="{DataTemplate authorization:LoadingPage}" Route="LoadingPage"/>
+
+    <ShellContent
+        Title="Login Page" FlyoutItemIsVisible="False" Shell.FlyoutBehavior="Disabled"
+        ContentTemplate="{DataTemplate authorization:LoginPage}"
+        Route="LoginPage"/>
+
+    <ShellContent
+        Title="RegistrationPage" FlyoutItemIsVisible="False" Shell.FlyoutBehavior="Disabled"
+        ContentTemplate="{DataTemplate authorization:RegistrationPage}"
+        Route="RegistrationPage"/>
+
+    <FlyoutItem Route="EventsPage" FlyoutDisplayOptions="AsMultipleItems">
+        <ShellContent
+            Title="Главная"
+            Icon="{x:Static models:Icons.Event}"
+            ContentTemplate="{DataTemplate views:EventsPage}"/>
+        <ShellContent
+            Title="Друзья"
+            Icon="{x:Static models:Icons.Friends}"
+            ContentTemplate="{DataTemplate views:FriendsPage}"/>
+        <ShellContent
+            Title="Профиль"
+            Icon="{x:Static models:Icons.Profile}"
+            ContentTemplate="{DataTemplate views:ProfilePage}"/>
+    </FlyoutItem>
+
+    <Shell.ItemTemplate>
+        <DataTemplate>
+            <Grid ColumnDefinitions="0.2*,0.8*">
+                <Image Source="{Binding FlyoutIcon}"
+                       Margin="5"
+                       HeightRequest="40" />
+                <Label Grid.Column="1"
+                       Text="{Binding Title}"
+                       FontAttributes="Bold"
+                       VerticalTextAlignment="Center" />
+            </Grid>
+        </DataTemplate>
+    </Shell.ItemTemplate>
+
+    <Shell.FlyoutFooter>
+        <StackLayout Padding="30">
+            <Button Text="Выйти" Command="{Binding SignOutCommand}"/>
+        </StackLayout>
+    </Shell.FlyoutFooter>
+</Shell>

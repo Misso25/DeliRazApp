@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="DeliRazApp.Views.CreateExpensePage"
+             Title="Добавление расхода"
+             Shell.NavBarIsVisible="False">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Style x:Key="Zagolovok" TargetType="Label">
+                <Setter Property="FontSize" Value="26"/>
+                <Setter Property="TextColor" Value="Black"/>
+                <Setter Property="FontAttributes" Value="Bold"/>
+            </Style>
+            <Style x:Key="labelText" TargetType="Label">
+                <Setter Property="FontSize" Value="18"/>
+                <Setter Property="TextColor" Value="Black"/>
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ScrollView>
+        <VerticalStackLayout Margin="20" Spacing="10">
+            <Label 
+                Text="Добавление расхода"
+                Style="{StaticResource Zagolovok}"
+                VerticalOptions="Center" 
+                HorizontalOptions="Center"
+                Padding="0,20"/>
+            <Label
+                Text="Название"
+                Style="{StaticResource labelText}"
+                />
+            <Entry
+                Placeholder="Введите название"
+                Text="{Binding ExpenseDetail.ExpenseName}"
+                TextColor="Black"/>
+            
+            <Label
+                Text="Кто заплатил?"
+                Style="{StaticResource labelText}"/>
+            <Picker Title="Выберете плательщика" 
+                    TextColor="Black" 
+                    TitleColor="Gray" 
+                    ItemsSource="{Binding ParticipantList}" 
+                    ItemDisplayBinding="{Binding UserName}" 
+                    SelectedItem="{Binding SelectedCreditor}"/>
+            <Label
+                Text="Сколько заплатил?"
+                Style="{StaticResource labelText}"/>
+            <Entry
+                Placeholder="Введите сумму"
+                TextColor="Black"
+                Text="{Binding ExpenseAmount}"
+                Keyboard="Numeric"/>
+            <HorizontalStackLayout Spacing="30">
+                <Label
+                    Text="Поделить поровну на всех?"
+                    Style="{StaticResource labelText}"
+                    HorizontalOptions="Start"
+                    VerticalOptions="Center"/>
+                <CheckBox
+                    Color="Black"
+                    VerticalOptions="Center"
+                    IsChecked="True"
+                    IsEnabled="False"/>
+            </HorizontalStackLayout>
+            <HorizontalStackLayout Spacing="50">
+                <Picker
+                    WidthRequest="250"
+                    TextColor="Black" 
+                    TitleColor="Gray" 
+                    Title="Добавь участников"
+                    ItemsSource="{Binding ParticipantList}" 
+                    ItemDisplayBinding="{Binding UserName}" 
+                    SelectedItem="{Binding SelectedParticipant}"/>
+                <Button Text="+" Command="{Binding AddParticipantCommand}"/>
+            </HorizontalStackLayout>
+            
+            <CollectionView ItemsSource="{Binding SelectedParticipants}">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="2*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Frame Grid.Column="0" Margin="5" Padding="10" BackgroundColor="#FFDE7D">
+                                <Label Text="{Binding UserName}" FontAttributes="Bold" FontSize="20"/>
+                            </Frame>
+                            <Frame Grid.Column="1" Margin="5" BackgroundColor="#FFDE7D">
+                                <Entry Text="{Binding DeptAmount}" Placeholder="Сумма" Margin="5" Keyboard="Numeric"/>
+                            </Frame>
+                        </Grid>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+            <Button
+                Text="Добавить"
+                TextColor="Black"
+                BackgroundColor="#FFDE7D"
+                Command="{Binding CreateExpenseCommand}"/>
+        </VerticalStackLayout>
+    </ScrollView>
+    
+</ContentPage>

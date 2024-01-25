@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:models="clr-namespace:DeliRazApp.Models"
+             xmlns:viewModels="clr-namespace:DeliRazApp.ViewModels"
+             x:DataType="viewModels:ExpensePageViewModel"
+             x:Class="DeliRazApp.Views.ExpensePage"
+             Shell.NavBarIsVisible="False"
+             Title="{Binding SelectedExpense.ExpenseID}">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Style x:Key="lblText" TargetType="Label">
+                <Setter Property="FontAttributes" Value="Bold"/>
+                <Setter Property="Margin" Value="10,10"/>
+                <Setter Property="FontSize" Value="20"/>
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ScrollView>
+        <VerticalStackLayout Margin="20">
+            <Label 
+                HorizontalOptions="Center" FontSize="32" FontAttributes="Bold" Margin="0,20"
+                Text="{Binding SelectedExpense.ExpenseName}"/>
+            <Label
+                Text="Кто заплатил?"
+                Style="{StaticResource lblText}"/>
+            <Label Text="{Binding SelectedExpense.ExpenseCreditorName}" Style="{StaticResource lblText}" FontAttributes="None" Margin="10,0"/>
+            <Label Text="Сколько заплатил?" Style="{StaticResource lblText}"/>
+            <Label Text="{Binding SelectedExpense.ExpenseAmount}" Style="{StaticResource lblText}" FontAttributes="None" Margin="10,0"/>
+
+            <Label Text="Долги" HorizontalOptions="Center" Margin="0,20" FontSize="32" FontAttributes="Bold" />
+            <CollectionView ItemsSource="{Binding Debts}">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="models:DebtModel" >
+                        <Frame BackgroundColor="#FFDE7D" Margin="10" HeightRequest="60">
+                            <HorizontalStackLayout HorizontalOptions="Center" Spacing="10">
+                                <VerticalStackLayout HorizontalOptions="Center"  VerticalOptions="Center">
+                                    <Label Text="{Binding DebtDebtorName}" VerticalOptions="Center" HorizontalOptions="Center" FontAttributes="Bold"/>
+                                    <Label Text="{Binding DebtDebtorLogin, StringFormat='({0})'}" VerticalOptions="Center" HorizontalOptions="Center"/>
+                                </VerticalStackLayout>
+                                <VerticalStackLayout HorizontalOptions="Center"  VerticalOptions="Center">
+                                    <Label Text="{Binding DebtAmount, StringFormat='должен {0} RUB'}"/>
+                                </VerticalStackLayout>
+                                <VerticalStackLayout HorizontalOptions="Center" VerticalOptions="Center">
+                                    <Label Text="{Binding DebtCreditorName}" VerticalOptions="Center" HorizontalOptions="Center" FontAttributes="Bold"/>
+                                    <Label Text="{Binding DebtCreditorLogin, StringFormat='({0})'}" VerticalOptions="Center" HorizontalOptions="Center" />
+                                </VerticalStackLayout>
+                            </HorizontalStackLayout>
+                        </Frame>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+            <Label Text="Участники" HorizontalOptions="Center" Margin="0,20" FontSize="32" FontAttributes="Bold"/>
+            <CollectionView ItemsSource="{Binding Participants}" ItemsLayout="VerticalGrid, 4">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="models:UserModel">
+                        <Frame HeightRequest="70" WidthRequest="70" Margin="10, 5">
+                            <Frame.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding Source={x:RelativeSource AncestorType={x:Type viewModels:ExpensePageViewModel}}, Path=OpenProfileFriendCommand}" CommandParameter="{Binding .}"/>
+                            </Frame.GestureRecognizers>
+                            <VerticalStackLayout VerticalOptions="Center">
+                                <Label Text="{Binding UserName}" VerticalOptions="Center" HorizontalOptions="Center" FontAttributes="Bold"/>
+                                <Label Text="{Binding UserLogin}" VerticalOptions="Center" HorizontalOptions="Center"/>
+                            </VerticalStackLayout>
+                        </Frame>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

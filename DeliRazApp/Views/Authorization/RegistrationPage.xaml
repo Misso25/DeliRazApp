@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="DeliRazApp.Views.Authorization.RegistrationPage"
+             Title="Страница регистрации"
+             Shell.NavBarIsVisible="False"
+             BackgroundColor="#F8F3D4">
+    <VerticalStackLayout Padding="20,0" VerticalOptions="Start" Spacing="10">
+        <Label 
+            Text="Регистрация"
+            VerticalOptions="Start"
+            HorizontalOptions="Center"
+            FontSize="32"
+            FontAttributes="Bold"
+            TextColor="Black"
+            Padding="0,20"/>
+        <Frame BackgroundColor="#FFDE7D" BorderColor="#FFDE7D" >
+            <VerticalStackLayout>
+                <Label 
+                    Text="Имя"
+                    TextColor="Black"
+                    FontAttributes="Bold"
+                    VerticalOptions="Center" 
+                    HorizontalOptions="Center" />
+                <Entry 
+                    Placeholder="Введите ваше имя"
+                    Text="{Binding CurrentUser.UserName}"
+                    TextColor="Black"/>
+            </VerticalStackLayout>
+        </Frame>
+        <Frame BackgroundColor="#FFDE7D" BorderColor="#FFDE7D" >
+            <VerticalStackLayout>
+                <Label 
+                    Text="Логин"
+                    TextColor="Black"
+                    FontAttributes="Bold"
+                    VerticalOptions="Center" 
+                    HorizontalOptions="Center" />
+                <Entry 
+                    Placeholder="Введите логин"
+                    Text="{Binding CurrentUser.UserLogin}"
+                    TextColor="Black"/>
+            </VerticalStackLayout>
+        </Frame>
+        <Frame BackgroundColor="#FFDE7D" BorderColor="#FFDE7D">
+            <VerticalStackLayout>
+                <Label 
+                    Text="Пароль" 
+                    VerticalOptions="Center"
+                    TextColor="Black"
+                    FontAttributes="Bold"
+                    HorizontalOptions="Center" />
+                <Entry 
+                    Placeholder="Введите пароль"
+                    IsPassword="True"
+                    Text="{Binding CurrentUser.UserPassword}"
+                    TextColor="Black"/>
+            </VerticalStackLayout>
+        </Frame>
+        <Button 
+            Text="Зарегистрироваться"
+            BackgroundColor="#FFDE7D"
+            FontAttributes="Bold"
+            HorizontalOptions="Center"
+            Command="{Binding RegisterUserCommand}"/>
+        <Label Text="Уже есть аккаунт?" HorizontalOptions="Center" Margin="0,20"/>
+        <Button 
+            Text="Войти"
+            Command="{Binding OpenLoginPageCommand}"/>
+    </VerticalStackLayout>
+</ContentPage>
